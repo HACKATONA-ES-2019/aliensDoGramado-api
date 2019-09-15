@@ -68,7 +68,7 @@ class AreaService @Autowired constructor(private val repository: AreaRepository)
         }
         foundInArea ?: throw RuntimeException("fora de qualquer area registrada")
         repository.updateArea(foundInArea)
-        sendAlert()
+//        sendAlert()
         return repository.getAllAreas()
     }
 
