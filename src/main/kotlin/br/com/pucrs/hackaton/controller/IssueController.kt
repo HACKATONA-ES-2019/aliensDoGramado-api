@@ -1,6 +1,7 @@
 package br.com.pucrs.hackaton.controller
 
 import br.com.pucrs.hackaton.model.Area
+import br.com.pucrs.hackaton.model.Evento
 import br.com.pucrs.hackaton.service.AreaService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
@@ -17,5 +18,8 @@ class IssueController @Autowired constructor(private val areaService : AreaServi
 
     @PostMapping("/area")
     fun insertArea(@RequestBody area: Area) = areaService.insertArea(area)
+
+    @PutMapping("/area")
+    fun updateArea(@RequestBody evento: Evento) = areaService.updateEventInArea(evento)
 
 }
