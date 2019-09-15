@@ -22,7 +22,7 @@ class AreaService @Autowired constructor(private val repository: AreaRepository)
 
     fun insertArea(area: Area) = repository.addArea(area)
 
-    fun updateEventInArea(evento: Evento) {
+    fun updateEventInArea(evento: Evento): MutableList<Area> {
         val areas = getAreas()
         val foundInArea = areas.firstOrNull { area ->
 
@@ -68,6 +68,8 @@ class AreaService @Autowired constructor(private val repository: AreaRepository)
         }
         foundInArea ?: throw RuntimeException("fora de qualquer area registrada")
         repository.updateArea(foundInArea)
+        sendAlert()
+        return repository.getAllAreas()
     }
 
     fun distanceInKmBetweenEarthCoordinates(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {

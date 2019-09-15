@@ -22,7 +22,4 @@ class IssueController @Autowired constructor(private val areaService : AreaServi
     @PutMapping("/area")
     fun updateArea(@RequestBody evento: Evento) = areaService.updateEventInArea(evento)
 
-    @PostMapping("/alert")
-    fun insertArea() = areaService.sendAlert()
-
 }
