@@ -4,9 +4,13 @@ import br.com.pucrs.hackaton.model.Area
 import br.com.pucrs.hackaton.model.Evento
 import br.com.pucrs.hackaton.model.GrupoEvento
 import br.com.pucrs.hackaton.repository.AreaRepository
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.Message
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import kotlin.math.*
+import kotlin.math.asin
+import kotlin.math.cos
+import kotlin.math.sqrt
 
 
 @Service
@@ -66,13 +70,26 @@ class AreaService @Autowired constructor(private val repository: AreaRepository)
         repository.updateArea(foundInArea)
     }
 
-    fun distanceInKmBetweenEarthCoordinates(lat1 : Double, lon1 : Double, lat2 : Double, lon2 : Double): Double {
+    fun distanceInKmBetweenEarthCoordinates(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
         var p = 0.017453292519943295
-        var a = 0.5 - cos((lat2 - lat1) * p) /2 +
+        var a = 0.5 - cos((lat2 - lat1) * p) / 2 +
                 cos(lat1 * p) * cos(lat2 * p) *
-                (1 - cos((lon2 - lon1) * p))/2;
+                (1 - cos((lon2 - lon1) * p)) / 2
 
         val response = 12742 * asin(sqrt(a)) * 1000
         return response
+    }
+
+    fun sendAlert() {
+        val registrationToken = "YOUR_REGISTRATION_TOKEN"
+
+        val message = Message.builder()
+                .putData("score", "850")
+                .putData("time", "2:45")
+                .setToken(registrationToken)
+                .build()
+
+        val response = FirebaseMessaging.getInstance().send(message)
+        println("Successfully sent message: $response")
     }
 }
