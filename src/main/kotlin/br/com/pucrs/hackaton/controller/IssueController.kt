@@ -14,7 +14,7 @@ class IssueController @Autowired constructor(private val areaService : AreaServi
     fun getAreas() = areaService.getAreas()
 
     @GetMapping("/{key}")
-    fun getAreaByKey(@RequestParam key : String) = areaService.getAreaByKey(key)
+    fun getAreaByKey(@PathVariable key : String) = areaService.getAreaByKey(key)
 
     @PostMapping("/area")
     fun insertArea(@RequestBody area: Area) = areaService.insertArea(area)
