@@ -1,16 +1,21 @@
 package br.com.pucrs.hackaton.controller
 
-import br.com.pucrs.hackaton.service.IssueService
+import br.com.pucrs.hackaton.model.Area
+import br.com.pucrs.hackaton.service.AreaService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/v1/issues")
-class IssueController @Autowired constructor(private val issueService : IssueService){
+class IssueController @Autowired constructor(private val areaService : AreaService){
 
-    @PostMapping("/issue/example")
-    fun insertExample() = issueService.addTestIssue()
+    @GetMapping("/")
+    fun getAreas() = areaService.getAreas()
+
+    @GetMapping("/{key}")
+    fun getAreaByKey(@RequestParam key : String) = areaService.getAreaByKey(key)
+
+    @PostMapping("/area")
+    fun insertArea(@RequestBody area: Area) = areaService.insertArea(area)
 
 }
